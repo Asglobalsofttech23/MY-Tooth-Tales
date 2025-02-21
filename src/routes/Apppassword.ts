@@ -1,5 +1,3 @@
-// 
-
 import express, { Request, Response } from 'express';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
@@ -7,7 +5,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const router = express.Router();
-
 // Create the Gmail transporter with App Password (not your main password)
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -20,7 +17,6 @@ const transporter = nodemailer.createTransport({
 // Define the POST route to handle contact form submission
 router.post('/send-email', (req: Request, res: Response) => {
   const { name, email, phone, message } = req.body;
-
   // Define the email options
   const mailOptions = {
     from: email, // Sender's email address (from the form)
@@ -28,7 +24,6 @@ router.post('/send-email', (req: Request, res: Response) => {
     subject: 'Contact Us Form Submission',
     text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`, // Email content
   };
-
   // Send the email
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -40,5 +35,4 @@ router.post('/send-email', (req: Request, res: Response) => {
     }
   });
 });
-
 export default router;

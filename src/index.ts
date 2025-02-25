@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth";
 import testimonialRoutes from "./routes/testimonials";
 import ApppasswordRoutes from "./routes/Apppassword";
 import db from "./config/db";
+import Imagage from "./routes/Imgage"
 
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/login", authRoutes);
 app.use("/testimonials", testimonialRoutes);
 app.use("/send-email", ApppasswordRoutes);
+app.use("/images",Imagage);
 
 //Testmonials get Method
 

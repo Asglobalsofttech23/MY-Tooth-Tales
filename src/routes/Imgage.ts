@@ -2,20 +2,7 @@ import express from "express";
 const router = express.Router();
 import multer from "multer";
 import db from "../config/db";
-import jwt from "jsonwebtoken";
 
-const authenticateToken = (req: any, res: any, next: any) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-  
-    if (!token) return res.status(401).json({ message: "Access denied" });
-  
-    jwt.verify(token, process.env.JWT_SECRET as string, (err : any, user: any) => {
-      if (err) return res.status(403).json({ message: "Invalid token" });
-      req.user = user;
-      next();
-    });
-  };
 
 // Multer configuration for handling image uploads
 const storage = multer.memoryStorage();
@@ -43,7 +30,7 @@ router.get("/images/:id", async (req:any, res:any) => {
 });
 
 // API to update image (only for ID 1 or 2)
-router.post("/images/:id", authenticateToken, upload.single("image"), async (req:any, res:any) => {
+router.post("/images/:id", upload.single("image"), async (req:any, res:any) => {
   const id = parseInt(req.params.id);
   if (![1, 2].includes(id)) return res.status(400).json({ error: "Invalid ID" });
 

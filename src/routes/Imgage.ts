@@ -12,7 +12,7 @@ const upload = multer({ storage: storage });
 // API to get image by ID (1 or 2)
 router.get("/images/:id", async (req:any, res:any) => {
   const id = parseInt(req.params.id);
-  if (![1, 2].includes(id)) return res.status(400).json({ error: "Invalid ID" });
+  if (![1, 2 , 3].includes(id)) return res.status(400).json({ error: "Invalid ID" });
 
   try {
     const [rows]: any = await db.query("SELECT image FROM homepage_images WHERE id = ?", [id]);
@@ -32,7 +32,7 @@ router.get("/images/:id", async (req:any, res:any) => {
 // API to update image (only for ID 1 or 2)
 router.post("/images/:id", upload.single("image"), async (req:any, res:any) => {
   const id = parseInt(req.params.id);
-  if (![1, 2].includes(id)) return res.status(400).json({ error: "Invalid ID" });
+  if (![1, 2 , 3].includes(id)) return res.status(400).json({ error: "Invalid ID" });
 
   if (!req.file) return res.status(400).json({ error: "No image uploaded" });
 
